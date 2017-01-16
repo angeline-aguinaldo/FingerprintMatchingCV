@@ -12,7 +12,10 @@ clear
 close all
 clc
 
-addpath(''); %add src path
+addpath([cd '/src']); %add src path
+if ~exist('Images', 'dir');
+    unzip('Images.zip');
+end
 
 %% Pre-Processing and Invariant Processing [Database]
 
@@ -20,6 +23,10 @@ addpath(''); %add src path
    '*.png', ...
    'Select all Database Images (CTRL + Click)', ...
    'MultiSelect', 'on');
+
+if (Database_fname == 0)
+    error('You must select the images in the database!');
+end
 
 DatabaseImages = Database_fname;
 DatabaseInfo = struct('Filename', DatabaseImages', 'Image', [], ...
@@ -53,6 +60,10 @@ end
    '*.png', ...
    'Select all Sample Fingerprint Images (CTRL + Click)', ...
    'MultiSelect', 'on');
+
+if (Fprint_fname == 0)
+    error('You must select the sample images!');
+end
 
 FprintImages = Fprint_fname;
 
